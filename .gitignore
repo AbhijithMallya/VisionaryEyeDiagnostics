@@ -1,3 +1,5 @@
 dataset/
 model_saved/
 venv/
+__pycache__/
+uploads/*
