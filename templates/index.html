@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        #uploadedImageContainer {
+            max-width: 300px;
+            max-height: 300px;
+            overflow: hidden;
+        }
+
+        #uploadedImage {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>OPTI - SCAN</title>
+    <!-- MDB icon -->
+    <link rel="icon"
+        href="data:image/png;base64,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"
+        type="image/x-icon" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" />
+    <!-- Google Fonts Roboto -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" />
+    <!-- MDB -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/mdb.min.css' )}}">
+</head>
+
+<body>
+    <!-- Start your project here-->
+
+    <div id="preview" class="preview">
+        <div style="display: none;"></div>
+        <div>
+            <div data-draggable="true" style="position: relative;"><!----><!---->
+                <section draggable="false" class="overflow-hidden pt-0" data-v-271253ee="">
+                    <section class="" style="padding-bottom: 1px;"> <!-- Navbar -->
+                        <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-2"> <!-- Container wrapper -->
+                            <div class="container-fluid"> <!-- Navbar brand --> <a class="navbar-brand me-2"
+                                    href="https://mdbgo.com/"> <img
+                                        src="https://images.unsplash.com/photo-1587910234573-d6fc84743bc8?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w5NjI0M3wwfDF8c2VhcmNofDl8fGV5ZXN8ZW58MHx8fHwxNzA0MjEwNzI2fDA&amp;ixlib=rb-4.0.3&amp;q=80&amp;w=1080"
+                                        height="16" alt="LOGO" loading="lazy" style="margin-top: -1px"
+                                        aria-controls="#picker-editor"> </a> <!-- Toggle button --> <button
+                                    class="navbar-toggler" type="button" data-mdb-toggle="collapse"
+                                    data-mdb-target="#navbarButtonsExample" aria-controls="navbarButtonsExample"
+                                    aria-expanded="false" aria-label="Toggle navigation"> <i class="fas fa-bars"></i>
+                                </button> <!-- Collapsible wrapper -->
+                                <div class="collapse navbar-collapse" id="navbarButtonsExample"> <!-- Left links -->
+                                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                        <li class="nav-item"> <a class="nav-link" href="#demo"
+                                                aria-controls="#picker-editor">DEMO</a> </li>
+                                        <li class="nav-item"> <a class="nav-link" href="#team"
+                                                aria-controls="#picker-editor">TEAM</a> </li>
+                                        <li class="nav-item"> <a class="nav-link" href=""
+                                                aria-controls="#picker-editor">EXTRA_LINK</a> </li>
+                                    </ul> <!-- Left links -->
+                                    <div class="d-flex align-items-center"> <button type="button"
+                                            class="btn  btn-primary btn-rounded me-3"
+                                            aria-controls="#picker-editor">Download report<i
+                                                class="fas fa-download p-1 ps-2"></i></button> </div>
+                                </div> <!-- Collapsible wrapper -->
+                            </div> <!-- Container wrapper -->
+                        </nav> <!-- Navbar -->
+                    </section>
+                </section><!---->
+            </div>
+            <div data-draggable="true" style="position: relative;"><!----><!---->
+                <section draggable="false" class="container pt-5" data-v-271253ee="">
+                    <section class="mb-10 text-center">
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-lg-8">
+                                <h2 class="mb-4 display-3 fw-bold ls-tight"> <span>OPTI&nbsp; SCAN</span> <br> <span
+                                        class="text-primary">EYE DISEASE DETECTOR</span> </h2>
+                                <p class="text-muted lead">A software to detect test and classify eye disease like
+                                    cataract glaucoma and diabetic retinopathy in human eyes.</p>
+                            </div>
+                        </div>
+                    </section>
+                </section><!---->
+            </div>
+            <div data-draggable="true" style="position: relative;"><!----><!---->
+                <section draggable="false" class="container pt-5" data-v-271253ee="">
+                    <section class="mb-10 text-center">
+                        <div class="d-flex justify-content-center">
+                            <div class="text-center" style="max-width: 700px">
+                                <h2 class="fw-bold mb-4 text-center"> <span class="me-2">Categorization
+                                        of&nbsp;</span><u class="text-primary">SAMPLES</u> </h2>
+                                <p class="text-muted mb-5">Sorting eyes into four, a vision project to explore.
+                                    Cataract, retinopathy, glaucoma, or clear, our pixels unveil what's near.</p>
+                            </div>
+                        </div>
+                        <div class="row gx-lg-5">
+                            <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
+                                <div class="p-3 bg-primary rounded-circle shadow-2-strong d-inline-block mb-4"> <i
+                                        class="fas fa-disease fa-lg text-white fa-fw"
+                                        aria-controls="#picker-editor"></i> </div>
+                                <h5 class="fw-bold mb-3">Cataract</h5>
+                                <p class="text-muted mb-0">&nbsp;A clouding of the eye's lens, causing blurred vision
+                                    and, if untreated, leading to visual impairment.</p>
+                            </div>
+                            <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
+                                <div class="p-3 bg-primary rounded-circle shadow-2-strong d-inline-block mb-4"> <i
+                                        class="fas fa-star-of-life fa-lg text-white fa-fw"
+                                        aria-controls="#picker-editor"></i> </div>
+                                <h5 class="fw-bold mb-3">Diabetic Retinopathy</h5>
+                                <p class="text-muted mb-0">A diabetes-related condition affecting the retina,
+                                    potentially causing vision loss due to damaged blood vessels.</p>
+                            </div>
+                            <div class="col-lg-3 col-md-6 mb-5 mb-md-0">
+                                <div class="p-3 bg-primary rounded-circle shadow-2-strong d-inline-block mb-4"> <i
+                                        class="fas fa-eye fa-lg text-white fa-fw"
+                                        aria-controls="#picker-editor"></i> </div>
+                                <h5 class="fw-bold mb-3">Glaucoma</h5>
+                                <p class="text-muted mb-0">Causes optic nerve damage, associated with increased
+                                    intraocular pressure, and leading to progressive vision loss.</p>
+                            </div>
+                            <div class="col-lg-3 col-md-6 mb-5 mb-md-0">
+                                <div class="p-3 bg-primary rounded-circle shadow-2-strong d-inline-block mb-4"> <i
+                                        class="fas fa-heart fa-lg text-white fa-fw"
+                                        aria-controls="#picker-editor"></i> </div>
+                                <h5 class="fw-bold mb-3">Normal</h5>
+                                <p class="text-muted mb-0">Healthy eyes without significant abnormalities or diseases,
+                                    providing a baseline for categorization process.</p>
+                            </div>
+                        </div>
+                    </section>
+                </section><!---->
+            </div>
+            <div data-draggable="true" style="position: relative;"><!----><!---->
+                <section draggable="false" class="overflow-hidden pt-0" data-v-271253ee="">
+                    <section class="mb-10"> <!-- Jumbotron -->
+                        <div class="px-4 py-5 px-md-5 text-center text-lg-start"
+                            style="background-color: hsl(0, 0%, 96%)">
+                            <div class="container">
+                                <div id="demo" class="row gx-lg-5 align-items-center">
+                                    <div class="col-lg-6 mb-5 mb-lg-0">
+                                        <h1 class="my-5 display-3 fw-bold ls-tight"> <span>Implementation</span> <br>
+                                            <span class="text-primary">Demo</span>
+                                        </h1>
+                                        <p style="color: hsl(217, 10%, 50.8%)">Selet an image of the format jpg / jpeg /
+                                            png and upload it. The Uploaded image is classified into one of the 4
+                                            categories mentioned above.</p>
+                                    </div>
+                                    <div class="col-lg-6 mb-5 mb-lg-0">
+                                        <div class="card">
+                                            <div class="card-body py-5 px-md-5">
+                                                <!-- <form> -->
+
+
+
+
+
+
+
+                                                    <div class="container mt-5">
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <form action="/upload" method="post" enctype="multipart/form-data">
+                                                                    <div class=" text-center input-group mb-3">
+                                                                        <input type="file" class=" form-data"  style="padding-left: 30%;" name="file" accept=".jpg, .jpeg, .png" required>
+                                            
+                                                                    </div>
+                                                                <!-- </form> -->
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- <form action="/upload" method="post" enctype="multipart/form-data">
+                                                        <input type="file" name="file" accept=".jpg, .jpeg, .png" required>
+                                                        
+                                                   
+                                                 -->
+                                                   
+
+
+                                                    <button
+                                                        type="submit" class="btn  btn-primary btn-block mb-4"
+                                                        aria-controls="#picker-editor">UPLOAD AND SUBMIT</button>
+                                                   
+                                                </form>
+
+                                                <br>
+                                                <h3 class="text-center">{{span}}</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> <!-- Jumbotron -->
+                    </section>
+                </section><!---->
+            </div>
+            <div data-draggable="true" style="position: relative;"><!----><!---->
+                <section id="team" draggable="false" class="container pt-5" data-v-271253ee="">
+                    <section class="mb-10 text-center">
+                        <h2 class="fw-bold mb-5"><span>Meet the</span> <u class="text-primary">team</u></h2>
+                        <div class="row">
+                            <div class="col-md-6 col-lg-3 mb-5 mb-lg-0"> <img class="rounded-5 shadow-1-strong mb-4"
+                                    src="{{ url_for('static', filename='img/profile.png' )}}" alt="avatar"
+                                    style="width: 150px" aria-controls="#picker-editor">
+                                <h5 class="mb-3">TEAM MEMBER 1</h5>
+                                <p>4SF20CSXXX</p>
+                                <ul class="list-unstyled mb-0"> <a href="#!" class="px-1"> <i class="fab fa-github"
+                                            aria-controls="#picker-editor"></i> </a> <a href="#!" class="px-1"> <i
+                                            class="fab fa-twitter" aria-controls="#picker-editor"></i> </a> <a href="#!"
+                                        class="px-1"> <i class="fab fa-linkedin-in" aria-controls="#picker-editor"></i>
+                                    </a> </ul>
+                            </div>
+                            <div class="col-md-6 col-lg-3 mb-5 mb-lg-0"> <img class="rounded-5 shadow-1-strong mb-4"
+                                    src="{{ url_for('static', filename='img/profile.png' )}}" alt="avatar"
+                                    style="width: 150px" aria-controls="#picker-editor">
+                                <h5 class="mb-3">TEAM MEMBER 2</h5>
+                                <p>4SF20CSXXX</p>
+                                <ul class="list-unstyled mb-0"> <a href="#!" class="px-1"> <i class="fab fa-github"
+                                            aria-controls="#picker-editor"></i> </a> <a href="#!" class="px-1"> <i
+                                            class="fab fa-twitter" aria-controls="#picker-editor"></i> </a> <a href="#!"
+                                        class="px-1"> <i class="fab fa-linkedin-in" aria-controls="#picker-editor"></i>
+                                    </a> </ul>
+                            </div>
+                            <div class="col-md-6 col-lg-3 mb-5 mb-md-0"> <img class="rounded-5 shadow-1-strong mb-4"
+                                    src="{{ url_for('static', filename='img/profile.png' )}}" alt="avatar"
+                                    style="width: 150px" aria-controls="#picker-editor">
+                                <h5 class="mb-3">TEAM MEMBER 3</h5>
+                                <p>4SF20CSXXX</p>
+                                <ul class="list-unstyled mb-0"> <a href="#!" class="px-1"> <i class="fab fa-facebook-f"
+                                            aria-controls="#picker-editor"></i> </a> <a href="#!" class="px-1"> <i
+                                            class="fab fa-twitter" aria-controls="#picker-editor"></i> </a> <a href="#!"
+                                        class="px-1"> <i class="fab fa-linkedin-in" aria-controls="#picker-editor"></i>
+                                    </a> </ul>
+                            </div>
+                            <div class="col-md-6 col-lg-3 mb-5 mb-md-0"> <img class="rounded-5 shadow-1-strong mb-4"
+                                    src="{{ url_for('static', filename='img/profile.png' )}}" alt="avatar"
+                                    style="width: 150px" aria-controls="#picker-editor">
+                                <h5 class="mb-3">TEAM MEMBER 4</h5>
+                                <p>4SF20CSXXX</p>
+                                <ul class="list-unstyled mb-0"> <a href="#!" class="px-1"> <i class="fab fa-dribbble"
+                                            aria-controls="#picker-editor"></i> </a> <a href="#!" class="px-1"> <i
+                                            class="fab fa-linkedin-in" aria-controls="#picker-editor"></i> </a> <a
+                                        href="#!" class="px-1"> <i class="fab fa-instagram"
+                                            aria-controls="#picker-editor"></i> </a> </ul>
+                            </div>
+                        </div>
+                    </section>
+                </section><!---->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer START-->
+    <footer class="bg-light text-center ">
+        <!-- Grid container -->
+        <div class="container p-4">
+
+
+
+            <!-- Section: Text -->
+            <section class="mb-4">
+                <p>
+                    Special thanks to our ************************** Add conclusion remarks
+                </p>
+            </section>
+            <!-- Section: Text -->
+
+
+        </div>
+        <!-- Grid container -->
+
+        <!-- Copyright -->
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+            © 2023 Copyright: TEAM XYZ
+
+        </div>
+        <!-- Copyright -->
+
+    </footer>
+    <!-- Footer END -->
+
+    <!-- End your project here-->
+
+    <!-- MDB -->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/mdb.umd.min.js' )}}"></script>
+    <!-- Custom scripts -->
+    <script type="text/javascript"></script>
+</body>
+
+</html>
